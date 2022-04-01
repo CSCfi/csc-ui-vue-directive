@@ -1,0 +1,31 @@
+{
+  "name": "csc-ui-vue-directive",
+  "version": "0.0.1",
+  "description": "Vue directive for usage with csc-ui",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc --build",
+    "build:watch": "tsc --build --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CSCfi/csc-ui-vue-directive.git"
+  },
+  "keywords": [
+    "Vue",
+    "csc-ui",
+    "directive"
+  ],
+  "author": "https://github.com/CSCfi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CSCfi/csc-ui-vue-directive/issues"
+  },
+  "homepage": "https://github.com/CSCfi/csc-ui-vue-directive#readme",
+  "devDependencies": {
+    "typescript": "~4.5.2"
+  },
+  "dependencies": {
+    "vue": "^2.6.14"
+  }
+}
