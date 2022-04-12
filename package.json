@@ -1,8 +1,9 @@
 {
   "name": "csc-ui-vue-directive",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "Vue directive for usage with csc-ui",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc --build",
     "build:watch": "tsc --build --watch"
@@ -27,5 +28,8 @@
   },
   "dependencies": {
     "vue": "^2.6.14"
-  }
+  },
+  "files": [
+    "dist/"
+  ]
 }
