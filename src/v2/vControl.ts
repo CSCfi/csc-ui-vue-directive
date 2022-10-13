@@ -1,15 +1,24 @@
-import Vue from 'vue';
+import Vue, { VNode } from 'vue';
+import { DirectiveBinding } from 'vue/types/options';
 
 const wm = new WeakMap();
 
+const resolve = (path: string, obj: VNode): object => {
+  // @ts-ignore
+  return path.split('.').reduce((prev, curr) => {
+    return prev ? prev[curr as keyof VNode] : null;
+  }, obj || self);
+};
+
 export const vControl = {
-  bind(el: HTMLInputElement, binding: any, vnode: any) {
+  bind(el: HTMLInputElement, binding: DirectiveBinding, vnode: VNode) {
     const inputHandler = (event: CustomEvent) => {
-      Vue.set(
-        vnode.context,
-        binding.expression,
-        (event.target as HTMLInputElement).value
-      );
+      if (!binding.expression) return;
+
+      const parts = ['context', ...binding.expression.split('.')];
+      const value = parts.pop();
+
+      Vue.set(resolve(parts.join('.'), vnode), `${value}`, event.detail);
     };
 
     wm.set(el, inputHandler);
@@ -17,19 +26,16 @@ export const vControl = {
     el.value = binding.value;
 
     // @ts-ignore
-    el.addEventListener('input', inputHandler);
-    // @ts-ignore
     el.addEventListener('changeValue', inputHandler);
   },
 
-  componentUpdated(el: HTMLInputElement, binding: any) {
+  componentUpdated(el: HTMLInputElement, binding: DirectiveBinding) {
     el.value = binding.value;
   },
 
   unbind(el: HTMLInputElement) {
     const inputHandler = wm.get(el);
 
-    el.removeEventListener('input', inputHandler);
     el.removeEventListener('changeValue', inputHandler);
   },
 };
