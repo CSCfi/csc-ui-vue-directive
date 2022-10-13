@@ -8,7 +8,7 @@ export const vControl = {
       Vue.set(
         vnode.context,
         binding.expression,
-        (event.target as HTMLInputElement).value,
+        (event.target as HTMLInputElement).value
       );
     };
 
@@ -16,8 +16,10 @@ export const vControl = {
 
     el.value = binding.value;
 
-    el.addEventListener('input', () => inputHandler);
-    el.addEventListener('changeValue', () => inputHandler);
+    // @ts-ignore
+    el.addEventListener('input', inputHandler);
+    // @ts-ignore
+    el.addEventListener('changeValue', inputHandler);
   },
 
   componentUpdated(el: HTMLInputElement, binding: any) {
